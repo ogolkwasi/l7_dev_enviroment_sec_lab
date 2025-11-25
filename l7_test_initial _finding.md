@@ -66,3 +66,28 @@ nc -nv 18.221.148.69 3210
 - vuln_results.txt
 - ssh_config_output.txt
 - netcat_3210_test.txt
+## Additional Findings - Phase 2
+
+### 4. CRITICAL: SSH User Enumeration Successful
+- **Severity**: HIGH
+- **Valid Users Confirmed**:
+  - root, admin, sap, sapadm, as4adm (system admin)
+  - daaadm, oraas4, sidadm, oracle, db2as4, sqsadm
+- **Attack Vector**: Brute force with common SAP passwords
+- **Mitigation**: 
+  - Disable password authentication
+  - Implement fail2ban
+  - Use key-based auth only
+
+### 5. HIGH: SAP Gateway Accessible (Port 3310)
+- **Service**: dyna-access (SAP Gateway)
+- **Risk**: Can be used to:
+  - Execute remote SAP programs
+  - Bypass authentication if misconfigured
+  - Access internal SAP systems
+- **Recommendation**: Restrict to internal network only
+
+### 6. MEDIUM: Multiple Filtered Web Services
+- **Ports**: 443, 8000, 8080, 44300, 50000, 50001
+- **Status**: Filtered (may be accessible via VPN)
+- **Action Required**: Test access through VPN tunnel
